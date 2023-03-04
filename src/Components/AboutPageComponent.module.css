@@ -1,0 +1,45 @@
+.about {
+    padding: 1rem;
+}
+
+.description {
+    text-align: center;
+}
+
+.description img {
+    margin: auto;
+}
+
+.cards{
+    display: flex;
+    justify-content: center;
+}
+
+.detail {
+    background-color: black;
+    color: white;
+    position: relative;
+    width: 17rem;
+    margin: 3%;
+}
+
+.detail a {
+    color: #FFD700;
+}
+
+.block {
+    background-color: #FFD700;
+    position: relative;
+    margin: 2%;
+    top: 100px;
+    width: 20rem;
+    height: 15rem;
+}
+
+.block img {
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    left: 40px;
+
+}
