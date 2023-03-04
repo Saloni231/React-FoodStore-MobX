@@ -1,7 +1,3 @@
-.about {
-    padding: 1rem;
-}
-
 .description {
     text-align: center;
 }
@@ -20,7 +16,8 @@
     color: white;
     position: relative;
     width: 17rem;
-    margin: 3%;
+    margin: 1%;
+    margin-top: 0;
 }
 
 .detail a {
@@ -30,16 +27,17 @@
 .block {
     background-color: #FFD700;
     position: relative;
-    margin: 2%;
-    top: 100px;
+    margin: 1%;
+    top: 80px;
     width: 20rem;
     height: 15rem;
+    margin-top: 0;
 }
 
 .block img {
     width: 100%;
     position: absolute;
-    top: 50px;
-    left: 40px;
+    top: 20px;
+    left: 20px;
 
 }

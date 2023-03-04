@@ -3,17 +3,17 @@ import styles from "./NavigationHeader.module.css";
 import CollapseButton from "./CollapseButton";
 import Button from "./UI/Button";
 import { useLocation } from "react-router-dom";
-import { observer } from "mobx-react";
-import store from "../store/CollapseToggle";
 import { useEffect } from "react";
+import { observer } from "mobx-react";
+import {useStores} from '../store/StoreContext';
 
-const NavigationHeader = observer(() => {
-  const storeVal = store;
+const NavigationHeader = (props) => {
+  const storeVal = useStores();
 
   const path = useLocation().pathname;
 
   useEffect(() => {
-    storeVal.pathChangeHandler(false);
+    storeVal.toggleStore.pathChangeHandler(false);
   }, [path, storeVal]);
 
   return (
@@ -24,72 +24,25 @@ const NavigationHeader = observer(() => {
           <p>FOOD STORE</p>
         </div>
         <CollapseButton
-          onClick={storeVal.toggleHandler}
+          onClick={storeVal.toggleStore.toggleHandler}
           style={styles.collapse}
         />
         <nav>
           <ul
             className={
-              storeVal.toggle
+              storeVal.toggleStore.toggle
                 ? `${styles.list}  ${styles.expanded}`
                 : `${styles.list}`
             }
           >
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
+            {props.headers.map((header) => (
+              <li key={header.id}>
+                <NavLink to={header.route} className={({ isActive }) =>
                   isActive ? styles.active : undefined
                 }
-                end
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                end
-              >
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/recipes"
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                end
-              >
-                Recipes
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/blog"
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                end
-              >
-                Blog
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/contactus"
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                end
-              >
-                Contact Us
-              </NavLink>
-            </li>
+                end>{header.name}</NavLink>
+              </li>
+            ))}
             <li>
               <NavLink to="/login">
                 <Button>Login</Button>
@@ -105,6 +58,6 @@ const NavigationHeader = observer(() => {
       </header>
     </>
   );
-});
+};
 
-export default NavigationHeader;
+export default observer(NavigationHeader);

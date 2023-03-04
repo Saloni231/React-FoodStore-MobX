@@ -1,0 +1,34 @@
+.description {
+    text-align: center;
+}
+
+.description img {
+    margin: auto;
+}
+
+.blog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
+    row-gap: 3%;
+    column-gap: 5%;
+    margin: 2% 20% auto;
+    width: 80%;
+    position: relative;
+}
+
+.date {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: black;
+    background-color: rgb(181, 176, 176);
+    z-index: 10;
+    width: 100px;
+    padding: 5px;
+}
+
+.blog img {
+    z-index: -1;
+    width: 100%;
+    height: 50%;
+}

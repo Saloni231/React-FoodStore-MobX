@@ -16,6 +16,6 @@ class CollapseToggle {
   }
 }
 
-let store = new CollapseToggle();
+let storeCollapse = new CollapseToggle();
 
-export default store;
+export default storeCollapse;
