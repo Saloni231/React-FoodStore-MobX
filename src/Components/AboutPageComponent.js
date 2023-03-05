@@ -12,7 +12,7 @@ const AboutPageComponent = (props) => {
         <Card style={styles.detail}>
           <h2>{props.data.detailHeader}</h2>
           <p>{props.data.detail}</p>
-          <a href={props.data.detailURL} target="_blank">
+          <a href={props.data.detailURL} target="_blank" rel="noreferrer">
             Read More
           </a>
         </Card>

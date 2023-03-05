@@ -6,6 +6,7 @@
   background-color: black;
   color: #ffd700;
   border: 1px solid #ffd700;
+  cursor: pointer;
 }
 
 .button:hover {

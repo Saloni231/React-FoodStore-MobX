@@ -11,11 +11,7 @@ const HomePageComponent = (props) => {
         <Button>Order Now</Button>
       </div>
       <div>
-        <img
-          src={props.data.image}
-          id="burgerimg"
-          alt="burger"
-        />
+        <img src={props.data.image} id="burgerimg" alt="burger" />
       </div>
     </div>
   );

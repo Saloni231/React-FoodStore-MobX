@@ -14,9 +14,8 @@ function BlogPageComponent(props) {
       <div className={styles.blog}>
         {props.data.map((blog) => (
           <Card key={blog.id}>
-            
+            <div className={styles.date}>{blog.date}</div>
             <img src={blog.image} alt={blog.title} />
-            <div className={styles.date} >{blog.date}</div>
             <hr />
             <h4>{blog.title}</h4>
             <p>{blog.description}</p>

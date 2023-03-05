@@ -1,12 +1,22 @@
 .recipe {
-    padding: auto;
-    width: max-content;
-    background-color: #FFD700;
-
+  padding: auto;
+  width: max-content;
+  background-color: #ffd700;
+  text-align: center;
 }
 
 .recipe img {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 10%;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 10%;
+}
+
+.recipe p {
+  font-weight: 600;
+  font-size: large;
+}
+
+.action:hover,
+.action:active {
+  border: 1px solid black;
 }

@@ -1,43 +1,42 @@
 .description {
-    text-align: center;
+  text-align: center;
 }
 
 .description img {
-    margin: auto;
+  margin: auto;
 }
 
-.cards{
-    display: flex;
-    justify-content: center;
+.cards {
+  display: flex;
+  justify-content: center;
 }
 
 .detail {
-    background-color: black;
-    color: white;
-    position: relative;
-    width: 17rem;
-    margin: 1%;
-    margin-top: 0;
+  background-color: black;
+  color: white;
+  position: relative;
+  width: 17rem;
+  margin: 1%;
+  margin-top: 0;
 }
 
 .detail a {
-    color: #FFD700;
+  color: #ffd700;
 }
 
 .block {
-    background-color: #FFD700;
-    position: relative;
-    margin: 1%;
-    top: 80px;
-    width: 20rem;
-    height: 15rem;
-    margin-top: 0;
+  background-color: #ffd700;
+  position: relative;
+  margin: 1%;
+  top: 80px;
+  width: 20rem;
+  height: 15rem;
+  margin-top: 0;
 }
 
 .block img {
-    width: 100%;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-
+  width: 100%;
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
