@@ -1,6 +1,10 @@
 import Card from "./UI/Card";
 import styles from "./Authentication.module.css";
 import useInput from "../Hooks/use-input";
+import {
+  emailValidation,
+  passwordValidation,
+} from "../Pages/AuthenticationRules";
 
 function LoginComponent(props) {
   const {
@@ -10,7 +14,7 @@ function LoginComponent(props) {
     inputChangeHandler: emailChangeHandler,
     blurHandler: emailBlurHandler,
     resetValues: emailReset,
-  } = useInput((value) => value.includes("@"));
+  } = useInput(emailValidation);
   const {
     input: password,
     isValid: passwordIsValid,
@@ -18,7 +22,7 @@ function LoginComponent(props) {
     inputChangeHandler: passwordChangeHandler,
     blurHandler: passwordBlurHandler,
     resetValues: passwordReset,
-  } = useInput((value) => value.trim().length !== 0);
+  } = useInput(passwordValidation);
 
   let formIsValid = false;
 
@@ -64,11 +68,10 @@ function LoginComponent(props) {
             value={email}
             onChange={emailChangeHandler}
             onBlur={emailBlurHandler}
-            required
           />
         </p>
         {emailFieldIsInvalid && (
-          <p className={styles.error}>Please Enter Valid Email</p>
+          <div className={styles.error}>Please Enter Valid Email</div>
         )}
 
         <p className={passwordClasses}>
@@ -80,11 +83,10 @@ function LoginComponent(props) {
             value={password}
             onChange={passwordChangeHandler}
             onBlur={passwordBlurHandler}
-            required
           />
         </p>
         {passwordFieldIsInvalid && (
-          <p className={styles.error}>Please Enter Valid Password</p>
+          <div className={styles.error}>Please Enter Valid Password</div>
         )}
         <div className={styles.actions}>
           <button disabled={!formIsValid}>Save</button>

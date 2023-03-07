@@ -21,7 +21,7 @@ function CartComponent(props) {
       </ul>
       <div className={styles.total}>
         <span>Total Amount</span>
-        <span>₹ {store.cartStore.totalAmount}</span>
+        <span>$ {store.cartStore.totalAmount}</span>
       </div>
     </Modal>
   );

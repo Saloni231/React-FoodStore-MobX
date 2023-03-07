@@ -19,7 +19,6 @@ const NavigationHeader = (props) => {
 
   const logoutHandler = () => {
     props.logout();
-    console.log(props.token);
   };
 
   return (

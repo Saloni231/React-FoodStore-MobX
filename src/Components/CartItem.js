@@ -17,7 +17,7 @@ const CartItem = (props) => {
       <div>
         <h2>{props.item.name}</h2>
         <div className={styles.summary}>
-          <span className={styles.price}>₹ {props.item.price}</span>
+          <span className={styles.price}>$ {props.item.price}</span>
           <span className={styles.amount}>x {props.item.quantity}</span>
         </div>
       </div>
@@ -27,7 +27,7 @@ const CartItem = (props) => {
       </div>
       <div>
         <span className={styles.price}>
-          <h3>Amount:</h3> ₹ {props.item.amount}
+          <h3>Amount:</h3> $ {props.item.amount}
         </span>
       </div>
     </li>

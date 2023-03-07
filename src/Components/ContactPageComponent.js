@@ -1,5 +1,10 @@
 import styles from "./ContactPageComponent.module.css";
 import useInput from "../Hooks/use-input";
+import {
+  emailValidation,
+  emptyFieldValidation,
+  phoneValidation,
+} from "../Pages/AuthenticationRules";
 
 function ContactPageComponent(props) {
   const {
@@ -9,7 +14,7 @@ function ContactPageComponent(props) {
     inputChangeHandler: nameChangeHandler,
     blurHandler: nameBlurHandler,
     resetValues: nameReset,
-  } = useInput((value) => value.trim().length !== 0);
+  } = useInput(emptyFieldValidation);
 
   const {
     input: phone,
@@ -18,7 +23,7 @@ function ContactPageComponent(props) {
     inputChangeHandler: phoneChangeHandler,
     blurHandler: phoneBlurHandler,
     resetValues: phoneReset,
-  } = useInput((value) => value.trim().length === 10);
+  } = useInput(phoneValidation);
   const {
     input: email,
     isValid: emailIsValid,
@@ -26,7 +31,7 @@ function ContactPageComponent(props) {
     inputChangeHandler: emailChangeHandler,
     blurHandler: emailBlurHandler,
     resetValues: emailReset,
-  } = useInput((value) => value.includes("@"));
+  } = useInput(emailValidation);
   const {
     input: message,
     isValid: messageIsValid,
@@ -34,7 +39,7 @@ function ContactPageComponent(props) {
     inputChangeHandler: messageChangeHandler,
     blurHandler: messageBlurHandler,
     resetValues: messageReset,
-  } = useInput((value) => value.trim().length !== 0);
+  } = useInput(emptyFieldValidation);
 
   let formIsValid = false;
 
@@ -97,14 +102,13 @@ function ContactPageComponent(props) {
             value={name}
             onChange={nameChangeHandler}
             onBlur={nameBlurHandler}
-            required
           />
         </p>
         {nameFieldIsInvalid && (
-          <p className={styles.error}>Please Enter name</p>
+          <div className={styles.error}>Please Enter Name</div>
         )}
         <p className={phoneClasses}>
-          <label htmlFor="phone">Contact No.</label>
+          <label htmlFor="phone">Contact Number</label>
           <input
             id="phone"
             type="number"
@@ -112,11 +116,10 @@ function ContactPageComponent(props) {
             value={phone}
             onChange={phoneChangeHandler}
             onBlur={phoneBlurHandler}
-            required
           />
         </p>
         {phoneFieldIsInvalid && (
-          <p className={styles.error}>Please Enter Valid Phone Number</p>
+          <div className={styles.error}>Please Enter Valid Phone Number</div>
         )}
         <p className={emailClasses}>
           <label htmlFor="email">Email</label>
@@ -127,11 +130,10 @@ function ContactPageComponent(props) {
             value={email}
             onChange={emailChangeHandler}
             onBlur={emailBlurHandler}
-            required
           />
         </p>
         {emailFieldIsInvalid && (
-          <p className={styles.error}>Please Enter Valid Email</p>
+          <div className={styles.error}>Please Enter Valid Email</div>
         )}
         <p className={messageClasses}>
           <label htmlFor="message">Message</label>
@@ -142,11 +144,10 @@ function ContactPageComponent(props) {
             value={message}
             onChange={messageChangeHandler}
             onBlur={messageBlurHandler}
-            required
           />
         </p>
         {messageFieldIsInvalid && (
-          <p className={styles.error}>Please Enter Message</p>
+          <div className={styles.error}>Please Enter Message</div>
         )}
         <div className={styles.actions}>
           <button disabled={!formIsValid}>Save</button>

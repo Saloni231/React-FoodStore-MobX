@@ -1,15 +1,12 @@
 import Card from "./UI/Card";
 import styles from "./Authentication.module.css";
 import useInput from "../Hooks/use-input";
-
-const passwordValidation = (value) => {
-  const passRegex =
-    /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[!@#$%&?._-]).{6,}$/;
-  if (!passRegex.test(value)) {
-    return false;
-  }
-  return true;
-};
+import {
+  emailValidation,
+  emptyFieldValidation,
+  passwordValidation,
+  phoneValidation,
+} from "../Pages/AuthenticationRules";
 
 function RegisterComponent(props) {
   const {
@@ -19,7 +16,7 @@ function RegisterComponent(props) {
     inputChangeHandler: fnameChangeHandler,
     blurHandler: fnameBlurHandler,
     resetValues: fnameReset,
-  } = useInput((value) => value.trim().length !== 0);
+  } = useInput(emptyFieldValidation);
   const {
     input: lname,
     isValid: lnameIsValid,
@@ -27,7 +24,7 @@ function RegisterComponent(props) {
     inputChangeHandler: lnameChangeHandler,
     blurHandler: lnameBlurHandler,
     resetValues: lnameReset,
-  } = useInput((value) => value.trim().length !== 0);
+  } = useInput(emptyFieldValidation);
   const {
     input: gender,
     isValid: genderIsValid,
@@ -35,7 +32,7 @@ function RegisterComponent(props) {
     inputChangeHandler: genderChangeHandler,
     blurHandler: genderBlurHandler,
     resetValues: genderReset,
-  } = useInput((value) => value.trim().length !== 0);
+  } = useInput(emptyFieldValidation);
   const {
     input: phone,
     isValid: phoneIsValid,
@@ -43,7 +40,7 @@ function RegisterComponent(props) {
     inputChangeHandler: phoneChangeHandler,
     blurHandler: phoneBlurHandler,
     resetValues: phoneReset,
-  } = useInput((value) => value.trim().length === 10);
+  } = useInput(phoneValidation);
   const {
     input: email,
     isValid: emailIsValid,
@@ -51,7 +48,7 @@ function RegisterComponent(props) {
     inputChangeHandler: emailChangeHandler,
     blurHandler: emailBlurHandler,
     resetValues: emailReset,
-  } = useInput((value) => value.includes("@"));
+  } = useInput(emailValidation);
   const {
     input: password,
     isValid: passwordIsValid,
@@ -60,18 +57,17 @@ function RegisterComponent(props) {
     blurHandler: passwordBlurHandler,
     resetValues: passwordReset,
   } = useInput(passwordValidation);
-  const {
-    input: confirmPassword,
-    isValid: cPasswordIsValid,
-    isFieldInvalid: cPasswordFieldIsInvalid,
-    inputChangeHandler: cPasswordChangeHandler,
-    blurHandler: cPasswordBlurHandler,
-    resetValues: cPasswordReset,
-  } = useInput(passwordValidation);
 
   let formIsValid = false;
 
-  if (!emailFieldIsInvalid && !passwordFieldIsInvalid) {
+  if (
+    !fnameFieldIsInvalid &&
+    !lnameFieldIsInvalid &&
+    !genderFieldIsInvalid &&
+    !phoneFieldIsInvalid &&
+    !emailFieldIsInvalid &&
+    !passwordFieldIsInvalid
+  ) {
     formIsValid = true;
   }
 
@@ -84,7 +80,6 @@ function RegisterComponent(props) {
     phoneBlurHandler();
     emailBlurHandler();
     passwordBlurHandler();
-    cPasswordBlurHandler();
 
     if (
       !fnameIsValid ||
@@ -92,8 +87,7 @@ function RegisterComponent(props) {
       !genderIsValid ||
       !phoneIsValid ||
       !emailIsValid ||
-      !passwordIsValid ||
-      !cPasswordIsValid
+      !passwordIsValid
     ) {
       return;
     }
@@ -105,7 +99,6 @@ function RegisterComponent(props) {
       phone,
       email: email.toLowerCase(),
       password,
-      confirmPassword,
     });
 
     fnameReset();
@@ -114,7 +107,6 @@ function RegisterComponent(props) {
     phoneReset();
     emailReset();
     passwordReset();
-    cPasswordReset();
   };
 
   const fnameClasses = fnameFieldIsInvalid
@@ -135,9 +127,6 @@ function RegisterComponent(props) {
   const passwordClasses = passwordFieldIsInvalid
     ? `${styles.control} ${styles.invalid}`
     : styles.control;
-  const cPasswordClasses = cPasswordFieldIsInvalid
-    ? `${styles.control} ${styles.invalid}`
-    : styles.control;
 
   return (
     <Card style={styles.authentication}>
@@ -151,7 +140,6 @@ function RegisterComponent(props) {
             value={fname}
             onChange={fnameChangeHandler}
             onBlur={fnameBlurHandler}
-            required
           />
         </p>
         {fnameFieldIsInvalid && (
@@ -166,7 +154,6 @@ function RegisterComponent(props) {
             value={lname}
             onChange={lnameChangeHandler}
             onBlur={lnameBlurHandler}
-            required
           />
         </p>
         {lnameFieldIsInvalid && (
@@ -175,6 +162,7 @@ function RegisterComponent(props) {
         <p className={genderClasses}>
           <label htmlFor="gender">Gender</label>
           <select
+            id="gender"
             name="gender"
             value={gender}
             onChange={genderChangeHandler}
@@ -197,7 +185,6 @@ function RegisterComponent(props) {
             value={phone}
             onChange={phoneChangeHandler}
             onBlur={phoneBlurHandler}
-            required
           />
         </p>
         {phoneFieldIsInvalid && (
@@ -212,7 +199,6 @@ function RegisterComponent(props) {
             value={email}
             onChange={emailChangeHandler}
             onBlur={emailBlurHandler}
-            required
           />
         </p>
         {emailFieldIsInvalid && (
@@ -228,25 +214,9 @@ function RegisterComponent(props) {
             value={password}
             onChange={passwordChangeHandler}
             onBlur={passwordBlurHandler}
-            required
           />
         </p>
         {passwordFieldIsInvalid && (
-          <p className={styles.error}>Please Enter Valid Password</p>
-        )}
-        <p className={cPasswordClasses}>
-          <label htmlFor="cpassword">Confirm Password</label>
-          <input
-            id="cpassword"
-            type="password"
-            name="cpassword"
-            value={confirmPassword}
-            onChange={cPasswordChangeHandler}
-            onBlur={cPasswordBlurHandler}
-            required
-          />
-        </p>
-        {cPasswordFieldIsInvalid && (
           <p className={styles.error}>Please Enter Valid Password</p>
         )}
         <div className={styles.actions}>
