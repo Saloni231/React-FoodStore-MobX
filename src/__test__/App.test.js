@@ -9,14 +9,31 @@ import ContactUsPage from "../Pages/ContactUs";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import ErrorPage from "../Pages/ErrorPage";
-
-test("testing Login Component", () => {
-  render(<App />);
-  expect(screen).toBeDefined();
-});
+import "jest-fix-undefined";
+import { act } from "react-test-renderer";
 
 describe("testing Navigation", () => {
-  test("root route", async () => {
+  let container;
+
+  beforeEach(() => {
+    container = document.createElement("div");
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    document.body.removeChild(container);
+    container = null;
+  });
+
+  it("app component", async () => {
+    await act(async() => {
+      await waitFor(() =>  render(<App />, container));
+    });
+
+    expect(screen).toBeDefined();
+  });
+
+  it("root route", async () => {
     const data = [{ text: "hello", description: "world" }];
     const route = [
       {
@@ -30,13 +47,15 @@ describe("testing Navigation", () => {
       initialEntries: ["/", ""],
     });
 
-    render(<RouterProvider router={router} />);
+    act(() => {
+      render(<RouterProvider router={router} />, container);
+    });
 
-    await waitFor(() => screen.getByText(data[0].text));
+    await screen.findByText(data[0].text);
     expect(screen.getByText(data[0].text)).toBeInTheDocument();
   });
 
-  test("about route", async () => {
+  it("about route", async () => {
     const data = [
       {
         aboutDescription: "about",
@@ -58,13 +77,15 @@ describe("testing Navigation", () => {
       initialEntries: ["/", "/about"],
     });
 
-    render(<RouterProvider router={router} />);
+    act(() => {
+      render(<RouterProvider router={router} />, container);
+    });
 
-    await waitFor(() => screen.getByText(data[0].detail));
+    await screen.findByText(data[0].detail);
     expect(screen.getByText(data[0].detail)).toBeInTheDocument();
   });
 
-  test("recipes route", async () => {
+  it("recipes route", async () => {
     const recipes = [{ id: 1, name: "food", price: 10, image: "image.png" }];
     const route = [
       {
@@ -78,13 +99,15 @@ describe("testing Navigation", () => {
       initialEntries: ["/", "/recipes"],
     });
 
-    render(<RouterProvider router={router} />);
+    act(() => {
+      render(<RouterProvider router={router} />, container);
+    });
 
-    await waitFor(() => screen.getByText(recipes[0].name));
+    await screen.findByText(recipes[0].name);
     expect(screen.getByText(recipes[0].name)).toBeInTheDocument();
   });
 
-  test("blog route", async () => {
+  it("blog route", async () => {
     const data = [
       {
         id: 1,
@@ -106,13 +129,15 @@ describe("testing Navigation", () => {
       initialEntries: ["/", "/blog"],
     });
 
-    render(<RouterProvider router={router} />);
+    act(() => {
+      render(<RouterProvider router={router} />);
+    });
 
-    await waitFor(() => screen.getByText(data[0].title));
+    await screen.findByText(data[0].title);
     expect(screen.getByText(data[0].title)).toBeInTheDocument();
   });
 
-  test("contact us route", async () => {
+  it("contact us route", async () => {
     const route = [
       {
         path: "/contactus",
@@ -124,13 +149,15 @@ describe("testing Navigation", () => {
       initialEntries: ["/", "/contactus"],
     });
 
-    render(<RouterProvider router={router} />);
+    act(() => {
+      render(<RouterProvider router={router} />, container);
+    });
 
-    await waitFor(() => screen.getByText("Email"));
+    await screen.findByText("Email");
     expect(screen.getByText("Email")).toBeInTheDocument();
   });
 
-  test("login route", async () => {
+  it("login route", async () => {
     const route = [
       {
         path: "/login",
@@ -142,13 +169,15 @@ describe("testing Navigation", () => {
       initialEntries: ["/", "/login"],
     });
 
-    render(<RouterProvider router={router} />);
+    act(() => {
+      render(<RouterProvider router={router} />, container);
+    });
 
-    await waitFor(() => screen.getByText("Email"));
+    await screen.findByText("Email");
     expect(screen.getByText("Email")).toBeInTheDocument();
   });
 
-  test("about route", async () => {
+  it("register route", async () => {
     const route = [
       {
         path: "/register",
@@ -160,13 +189,15 @@ describe("testing Navigation", () => {
       initialEntries: ["/", "/register"],
     });
 
-    render(<RouterProvider router={router} />);
+    act(() => {
+      render(<RouterProvider router={router} />, container);
+    });
 
-    await waitFor(() => screen.getByText("Email"));
+    await screen.findByText("Email");
     expect(screen.getByText("Email")).toBeInTheDocument();
   });
 
-  test("not found route", async () => {
+  it("not found route", async () => {
     const route = [
       {
         errorElement: <ErrorPage />,
@@ -177,9 +208,11 @@ describe("testing Navigation", () => {
       initialEntries: ["/", "/home"],
     });
 
-    render(<RouterProvider router={router} />);
+    act(() => {
+      render(<RouterProvider router={router} />, container);
+    });
 
-    await waitFor(() => screen.getByText("Not found!"));
+    await screen.findByText("Not found!");
     expect(screen.getByText("Not found!")).toBeInTheDocument();
   });
 });
